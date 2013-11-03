@@ -1,0 +1,97 @@
+/*
+    The following program implements a command-line game of life, originally
+    introduced by John Conway in 1970.
+
+    This program is licensed under a Creative Commons Attribution 3.0 License.
+    This license lets you distribute, remix, tweak, and build upon this work,
+    even commercially, as long as you credit its author(s) for the original
+    creation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+    You should have received a copy of the Creative Commons Attribution 3.0
+    License along with this program.
+    If not, see <http://creativecommons.org/licenses/by/3.0/legalcode>.
+
+    Copyright (c) 2013 Romain Gauthier <rj.gauthier@laposte.net>
+*/
+
+#include "patterns.h"
+#include <regex.h>
+
+void initGrid(Grid *grid, int size) {
+    grid->size = size;
+    grid->g = (int**)malloc(size*sizeof(int*));
+    for(int i = 0; i < size ; i++)
+      grid->g[i] = (int*)calloc(size,sizeof(int));
+}
+
+void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
+    if (pattern->size > grid->size ) {
+        printf("ERROR: the pattern size is larger than the grid size.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if ( y+pattern->size > grid->size-1 || x+pattern->size > grid->size -1) {
+        printf("ERROR: the offset is too large for the grid.\n");
+        exit(EXIT_FAILURE);
+    }
+    int x_offset = x, y_offset = y;
+
+    if (x < 0 || y < 0)
+      x_offset = y_offset = (grid->size - pattern->size) / 2;
+
+    for(int i = 0; i < pattern->size; i++)
+        for(int j = 0; j < pattern->size; j++)
+            grid->g[x_offset+i][y_offset+j] = pattern->g[i][j];
+}
+
+void loadDefaultPatternToGrid(Grid *grid) {
+    if (grid->size < 3) {
+        printf("ERROR: the pattern size is larger than the grid size.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int offset = (grid->size - 3) / 2;
+    grid->g[offset][offset-1] = 1;
+    grid->g[offset][offset]   = 1;
+    grid->g[offset][offset+1] = 1;
+}
+
+void loadPatternFromFile(const char* path, Grid *pattern) {
+    FILE *file = NULL;
+    file = fopen(path, "r");
+    if (!file) {
+        fprintf(stderr, "ERROR: unable to open file '%s'.\n", path);
+        exit(EXIT_FAILURE);
+    }
+    int size = 0, counter = 0;
+    char line[2048];
+    regex_t regex;
+    int ret = regcomp(&regex, "[01]", 0);
+
+    int scanTest = fscanf(file, "size %d", &size);
+    if (!size || !scanTest) {
+        fprintf(stderr, "ERROR: unable to read patter from file '%s'.\n", path);
+        exit(EXIT_FAILURE);
+    }
+
+    initGrid(pattern, size);
+    while(fgets(line, 2048, file) != NULL) {
+        ret = regexec(&regex, line, 0, NULL, 0);
+        if (!ret) {
+            for (int i = 0; i < size ; i++)
+                pattern->g[counter][i] = line[i] - '0';
+            counter++;
+        }
+    }
+    fclose(file);
+}
+
+void freeGrid(Grid *pattern) {
+    for (int i = 0; i < pattern->size; i++)
+        free(pattern->g[i]);
+    free(pattern->g);
+}
