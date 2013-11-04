@@ -22,5 +22,5 @@ cleanup:
 	rm -f *.o
 
 clean: cleanup
-	rm -f gameOfLife core
+	rm -f gameOfLife
 

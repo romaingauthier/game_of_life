@@ -38,5 +38,4 @@ Romain Gauthier               <rj.gauthier@laposte.net>
 -------------------------------------------------------------------------------
 4. LICENSE
 
-Please refer to the Creative Commons Attributions 3.0 License
-(creative_common_3.0_attr.txt).
+Please refer to the GNU GPL 3.0 License (see gpl.txt).
