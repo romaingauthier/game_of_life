@@ -81,7 +81,7 @@ void loadPatternFromFile(const char* path, Grid *pattern) {
         ret = regexec(&regex, line, 0, NULL, 0);
         if (!ret) {
             for (int i = 0; i < size ; i++)
-                pattern->g[counter][i] = line[i] - '0';
+                pattern->g[i][counter] = line[i] - '0';
             counter++;
         }
     }
