@@ -26,12 +26,13 @@ void initGrid(Grid *grid, int size) {
 
 void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
     if (pattern->size > grid->size ) {
-        printf("ERROR: the pattern size is larger than the grid size.\n");
+        fprintf(stderr, "ERROR: the pattern size is larger than the grid size.
+                \n");
         exit(EXIT_FAILURE);
     }
 
     if ( y+pattern->size > grid->size-1 || x+pattern->size > grid->size -1) {
-        printf("ERROR: the offset is too large for the grid.\n");
+        fprintf(stderr, "ERROR: the offset is too large for the grid.\n");
         exit(EXIT_FAILURE);
     }
     int x_offset = x, y_offset = y;
@@ -46,7 +47,8 @@ void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
 
 void loadDefaultPatternToGrid(Grid *grid) {
     if (grid->size < 3) {
-        printf("ERROR: the pattern size is larger than the grid size.\n");
+        fprintf(stderr, "ERROR: the pattern size is larger than the grid size.
+                \n");
         exit(EXIT_FAILURE);
     }
 
