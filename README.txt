@@ -37,7 +37,7 @@ For now, the only way you can play around with patterns of you own is by adding
 or editing existing files according to the following model.
 
 *****file start*****
-size=2
+size 2
 01
 10
 *****file end*****
