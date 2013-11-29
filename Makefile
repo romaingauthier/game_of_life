@@ -3,8 +3,8 @@ CC = gcc
 
 all: gameOfLife cleanup
 
-gameOfLife: main.o gol.o cmd.o patterns.o
-	$(CC) $(CFLAGS) gameOfLife main.o gol.o cmd.o patterns.o -lncurses -lSDL
+gameOfLife: main.o gol.o cmd.o patterns.o graph.o
+	$(CC) $(CFLAGS) gameOfLife main.o gol.o cmd.o patterns.o graph.o -lncurses -lSDL
 
 main.o:
 	$(CC) -c $(CFLAGS) main.o main.c
@@ -17,6 +17,9 @@ patterns.o:
 
 gol.o:
 	$(CC) -c $(CFLAGS) gol.o gameoflife.c
+
+graph.o:
+	$(CC) -c $(CFLAGS) graph.o graph.c
 
 cleanup:
 	rm -f *.o
