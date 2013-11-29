@@ -4,7 +4,7 @@ CC = gcc
 all: gameOfLife cleanup
 
 gameOfLife: main.o gol.o cmd.o patterns.o
-	$(CC) $(CFLAGS) gameOfLife main.o gol.o cmd.o patterns.o -lncurses
+	$(CC) $(CFLAGS) gameOfLife main.o gol.o cmd.o patterns.o -lncurses -lSDL
 
 main.o:
 	$(CC) -c $(CFLAGS) main.o main.c

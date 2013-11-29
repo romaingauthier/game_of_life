@@ -21,6 +21,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <string.h>
+#include <SDL/SDL.h>
 
 int main(int argc, char **argv){
 
@@ -59,6 +60,12 @@ int main(int argc, char **argv){
 
     unsigned int iteration = 0, nbiter = 0;
     if (p.nbiter) nbiter = p.nbiter;
+
+    /* Graphics */
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Quit();
+
+    /* Console pattern loading */
 
     Grid pattern;
 
