@@ -80,8 +80,14 @@ int main(int argc, char **argv){
         initGraphU(g, grid.size, grid.size);
         PtList *pt = createPtList(grid.size * grid.size);
         clearPtList(pt);
+        int running = 1;
+        SDL_Event evt;
 
-        while (iteration < nbiter || !p.nbiter) {
+        while ((iteration < nbiter || !p.nbiter) && running) {
+            SDL_WaitEventTimeout(&evt, 1);
+            if (evt.type == SDL_QUIT)
+                running = 0;
+
             if (iteration % 2 == 0){
                 update(&grid, &grid2);
                 fillPtList(pt,&grid2);
