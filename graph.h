@@ -18,6 +18,30 @@
 #ifndef DEF_GRAPH
 #define DEF_GRAPH
 
+#include <SDL2/SDL.h>
+#include <stdlib.h>
+#include "patterns.h"
+typedef struct GraphU {
+    SDL_Window *win;
+    SDL_Renderer *renderer;
+} GraphU;
+
+typedef struct PtList {
+    SDL_Point *pt;
+    int count;
+    unsigned maxNbPts;
+} PtList;
+
+GraphU* createGraphU();
+PtList* createPtList(unsigned int maxNbPts);
+void initGraphU(GraphU *g, unsigned int width, unsigned int h);
+
+void fillPtList(PtList *p, Grid *grid);
+void clearPtList(PtList *p);
+void drawGrid(GraphU *graphU, PtList *p);
+
+void destroyGraphU(GraphU* g);
+void destroyPtList(PtList *p);
 
 
 #endif

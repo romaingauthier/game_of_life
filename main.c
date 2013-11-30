@@ -21,7 +21,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <string.h>
-#include <SDL/SDL.h>
+#include "graph.h"
 
 int main(int argc, char **argv){
 
