@@ -29,15 +29,15 @@ int main(int argc, char **argv){
     Params p;
     initParams(&p);
     parseOptions(argc, argv, &p);
-    int graphics_mode = 1;
 
     /* Terminal settings */
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
-    if( p.size < 0 || p.size > termsize) p.size = termsize;
+    if(!p.graphmode) {
+        struct winsize w;
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+        int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
+        if( p.size < 0 || p.size > termsize) p.size = termsize;
+    }
 
-    p.size = 500;
     /* Allocate memory */
     int startx, starty;
     Grid grid, grid2;
@@ -73,7 +73,7 @@ int main(int argc, char **argv){
     }
     else loadDefaultPatternToGrid(&grid);
 
-    if (graphics_mode) {
+    if (p.graphmode) {
 
         /* Graphics */
         GraphU *g = createGraphU();
