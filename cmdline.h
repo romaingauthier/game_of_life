@@ -26,6 +26,7 @@ typedef struct Params{
     long delay;
     char cell;
     unsigned int nbiter;
+    int graphmode;
     char filename[1024];
 } Params;
 

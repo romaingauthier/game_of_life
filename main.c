@@ -21,6 +21,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <string.h>
+#include "graph.h"
 
 int main(int argc, char **argv){
 
@@ -30,10 +31,12 @@ int main(int argc, char **argv){
     parseOptions(argc, argv, &p);
 
     /* Terminal settings */
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
-    if( p.size < 0 || p.size > termsize) p.size = termsize;
+    if(!p.graphmode) {
+        struct winsize w;
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+        int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
+        if( p.size < 0 || p.size > termsize) p.size = termsize;
+    }
 
     /* Allocate memory */
     int startx, starty;
@@ -60,6 +63,8 @@ int main(int argc, char **argv){
     unsigned int iteration = 0, nbiter = 0;
     if (p.nbiter) nbiter = p.nbiter;
 
+
+    /* Console pattern loading */
     Grid pattern;
 
     if(strlen(p.filename)) {
@@ -68,37 +73,69 @@ int main(int argc, char **argv){
     }
     else loadDefaultPatternToGrid(&grid);
 
+    if (p.graphmode) {
 
-    /* Start curses mode */
-    initscr();
-    cbreak();
+        /* Graphics */
+        GraphU *g = createGraphU();
+        initGraphU(g, grid.size, grid.size);
+        PtList *pt = createPtList(grid.size * grid.size);
+        clearPtList(pt);
+        int running = 1;
+        SDL_Event evt;
 
-    starty = (LINES - p.size) / 2;
-    startx = (COLS - p.size) /2;
+        while ((iteration < nbiter || !p.nbiter) && running) {
+            SDL_WaitEventTimeout(&evt, 1);
+            if (evt.type == SDL_QUIT)
+                running = 0;
 
-    refresh();
-    WINDOW *window;
-    window = newwin(p.size, p.size, starty, startx);
-    box(window, 0, 0);
+            if (iteration % 2 == 0){
+                update(&grid, &grid2);
+                fillPtList(pt,&grid2);
+            }
+            else {
+                update(&grid2, &grid);
+                fillPtList(pt,&grid);
+            }
+            drawGrid(g,pt);
+            nanosleep(&req, &rem);
+            iteration++;
+        }
 
-
-    curs_set(0);
-
-    while (iteration < nbiter || !p.nbiter){
-	if (iteration % 2 == 0){
-	    update(&grid, &grid2);
-	    drawToWindow(&grid2, window, p.cell);
-	}
-	else {
-	    update(&grid2, &grid);
-	    drawToWindow(&grid, window, p.cell);
-	}
-	wrefresh(window);
-	nanosleep(&req, &rem);
-	iteration++;
+        destroyPtList(pt);
+        destroyGraphU(g);
+        SDL_Quit();
     }
+    else {
 
-    endwin();
+        /* Start curses mode */
+        initscr();
+        cbreak();
+
+        starty = (LINES - p.size) / 2;
+        startx = (COLS - p.size) /2;
+
+        refresh();
+        WINDOW *window;
+        window = newwin(p.size, p.size, starty, startx);
+        box(window, 0, 0);
+
+        curs_set(0);
+
+        while (iteration < nbiter || !p.nbiter){
+            if (iteration % 2 == 0){
+                update(&grid, &grid2);
+                drawToWindow(&grid2, window, p.cell);
+            }
+            else {
+                update(&grid2, &grid);
+                drawToWindow(&grid, window, p.cell);
+            }
+            wrefresh(window);
+            nanosleep(&req, &rem);
+            iteration++;
+        }
+        endwin();
+    }
 
     /* Deallocate memory */
     freeGrid(&grid);
