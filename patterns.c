@@ -19,6 +19,7 @@
 
 void initGrid(Grid *grid, int size) {
     grid->size = size;
+    grid->zoomfactor = 1;
     grid->g = (int**)malloc(size*sizeof(int*));
     for(int i = 0; i < size ; i++)
       grid->g[i] = (int*)calloc(size,sizeof(int));

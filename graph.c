@@ -45,13 +45,15 @@ void initGraphU(GraphU *g, unsigned int width, unsigned int height){
 }
 
 void fillPtList(PtList *p, Grid *grid) {
+    unsigned int zoomfactor = grid->zoomfactor;
     for(int w = 0; w < grid->size ; w++)
         for (int h = 0; h < grid->size; h++)
-            if (grid->g[w][h]){
-                p->pt[++(p->count)].x = w;
-                p->pt[p->count].y     = h;
-            }
-
+            if (grid->g[w][h])
+                for(int i = 0; i < zoomfactor; i++)
+                    for (int j = 0;j <zoomfactor; j++) {
+                        p->pt[++(p->count)].x = zoomfactor*w+i;
+                        p->pt[p->count].y     = zoomfactor*h+j;
+                    }
 }
 
 void clearPtList(PtList *p) {

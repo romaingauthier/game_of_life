@@ -22,6 +22,7 @@
 typedef struct Grid{
     int **g;
     int size;
+    int zoomfactor;
 } Grid;
 
 

@@ -39,10 +39,13 @@ int main(int argc, char **argv){
     }
 
     /* Allocate memory */
+    int zoom_factor = 3;
     int startx, starty;
     Grid grid, grid2;
     initGrid(&grid, p.size);
     initGrid(&grid2, p.size);
+    grid2.zoomfactor = zf;
+    grid.zoomfactor = zf;
 
     /* Set refresh rate */
     struct timespec req, rem;
@@ -77,8 +80,8 @@ int main(int argc, char **argv){
 
         /* Graphics */
         GraphU *g = createGraphU();
-        initGraphU(g, grid.size, grid.size);
-        PtList *pt = createPtList(grid.size * grid.size);
+        initGraphU(g, grid.size*grid.zoomfactor, grid.size*grid.zoomfactor);
+        PtList *pt = createPtList(grid.size * grid.size * grid.zoomfactor*grid.zoomfactor);
         clearPtList(pt);
         int running = 1;
         SDL_Event evt;
