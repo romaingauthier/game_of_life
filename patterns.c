@@ -17,9 +17,9 @@
 #include "patterns.h"
 #include <regex.h>
 
-void initGrid(Grid *grid, int size) {
+void initGrid(Grid *grid, int size, int zoomfactor) {
     grid->size = size;
-    grid->zoomfactor = 1;
+    grid->zoomfactor = zoomfactor;
     grid->g = (int**)malloc(size*sizeof(int*));
     for(int i = 0; i < size ; i++)
       grid->g[i] = (int*)calloc(size,sizeof(int));
@@ -77,7 +77,7 @@ void loadPatternFromFile(const char* path, Grid *pattern) {
         exit(EXIT_FAILURE);
     }
 
-    initGrid(pattern, size);
+    initGrid(pattern, size, 1);
     while(fgets(line, 2048, file) != NULL) {
         ret = regexec(&regex, line, 0, NULL, 0);
         if (!ret) {

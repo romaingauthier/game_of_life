@@ -30,22 +30,25 @@ int main(int argc, char **argv){
     initParams(&p);
     parseOptions(argc, argv, &p);
 
+    Grid grid, grid2;
+
     /* Terminal settings */
     if(!p.graphmode) {
+        int zoomfactor = 1;
         struct winsize w;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
         int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
         if( p.size < 0 || p.size > termsize) p.size = termsize;
+        initGrid(&grid, p.size, zoomfactor);
+        initGrid(&grid2, p.size, zoomfactor);
     }
-
-    /* Allocate memory */
-    int zoom_factor = 3;
-    int startx, starty;
-    Grid grid, grid2;
-    initGrid(&grid, p.size);
-    initGrid(&grid2, p.size);
-    grid2.zoomfactor = zf;
-    grid.zoomfactor = zf;
+    else {
+        int zoomfactor = 3;
+        initGrid(&grid, p.size/zoomfactor, zoomfactor);
+        initGrid(&grid2, p.size/zoomfactor, zoomfactor);
+        grid2.zoomfactor = zoomfactor;
+        grid.zoomfactor = zoomfactor;
+    }
 
     /* Set refresh rate */
     struct timespec req, rem;
@@ -80,8 +83,8 @@ int main(int argc, char **argv){
 
         /* Graphics */
         GraphU *g = createGraphU();
-        initGraphU(g, grid.size*grid.zoomfactor, grid.size*grid.zoomfactor);
-        PtList *pt = createPtList(grid.size * grid.size * grid.zoomfactor*grid.zoomfactor);
+        initGraphU(g, p.size, p.size);
+        PtList *pt = createPtList(grid.size * p.size * p.size);
         clearPtList(pt);
         int running = 1;
         SDL_Event evt;
@@ -114,8 +117,8 @@ int main(int argc, char **argv){
         initscr();
         cbreak();
 
-        starty = (LINES - p.size) / 2;
-        startx = (COLS - p.size) /2;
+        int starty = (LINES - p.size) / 2;
+        int startx = (COLS - p.size) /2;
 
         refresh();
         WINDOW *window;
