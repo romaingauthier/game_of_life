@@ -30,6 +30,6 @@ void initGrid(Grid *grid, int size, int zoomfactor);
 void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y);
 void freeGrid(Grid *pattern);
 void loadPatternFromFile(const char* path, Grid *pattern);
-void loadDefaultPatternToGrid(Grid *grid);
+void generateRandomPatternOnGrid(Grid *grid, double live);
 
 #endif

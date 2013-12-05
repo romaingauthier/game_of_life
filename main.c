@@ -77,7 +77,7 @@ int main(int argc, char **argv){
         loadPatternFromFile(p.filename, &pattern);
         loadPatternToGrid(&pattern, &grid, -1, -1);
     }
-    else loadDefaultPatternToGrid(&grid);
+    else generateRandomPatternOnGrid(&grid, 0.7);
 
     if (p.graphmode) {
 

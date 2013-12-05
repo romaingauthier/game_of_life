@@ -16,6 +16,7 @@
 
 #include "patterns.h"
 #include <regex.h>
+#include <time.h>
 
 void initGrid(Grid *grid, int size, int zoomfactor) {
     grid->size = size;
@@ -46,19 +47,6 @@ void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
             grid->g[x_offset+i][y_offset+j] = pattern->g[i][j];
 }
 
-void loadDefaultPatternToGrid(Grid *grid) {
-    if (grid->size < 3) {
-        fprintf(stderr, "ERROR: the pattern size is larger than the grid size. \
-                \n");
-        exit(EXIT_FAILURE);
-    }
-
-    int offset = (grid->size - 3) / 2;
-    grid->g[offset][offset-1] = 1;
-    grid->g[offset][offset]   = 1;
-    grid->g[offset][offset+1] = 1;
-}
-
 void loadPatternFromFile(const char* path, Grid *pattern) {
     FILE *file = NULL;
     file = fopen(path, "r");
@@ -87,6 +75,19 @@ void loadPatternFromFile(const char* path, Grid *pattern) {
         }
     }
     fclose(file);
+}
+
+void generateRandomPatternOnGrid(Grid *grid, double live) {
+    double l = live;
+    srand(time(NULL));
+    if ( l <= 0 || l >=1 )
+        l = 0.5;
+    for (int w = 0; w < grid->size ; w++)
+        for (int h = 0; h < grid->size ; h++) {
+            if((double)rand()/(double)RAND_MAX <= l)
+                grid->g[w][h] = 1;
+            else grid->g[w][h] = 0;
+        }
 }
 
 void freeGrid(Grid *pattern) {
