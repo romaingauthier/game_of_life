@@ -27,7 +27,7 @@ Conway in 1970.
 
 example :
 ```
-  ./gameOfLife -p 'patterns/pentadecathlon.pat'
+$ ./gameOfLife -p 'patterns/pentadecathlon.pat'
 ```
 
 ## PATTERNS FORMAT
