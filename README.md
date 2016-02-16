@@ -15,15 +15,17 @@ Conway in 1970.
 
 * To run the program, several parameters can be specified as arguments:
 
+```
    --size,    -s size of the squared grid (default: 30)
    --delay,   -d time between two iterations in ms (default: 100)
    --cell,    -c character used to draw a cell (default: '#')
    --nbiter,  -n number of iterations (default: 0 (infinite))
    --pattern, -p path to the pattern file
    --help,       display this help
-
+```
 * A couple of patterns are already available in the patterns directory.
-  -> working example :
+
+example :
 ```
   ./gameOfLife -p 'patterns/pentadecathlon.pat'
 ```
