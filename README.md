@@ -28,7 +28,10 @@ Conway in 1970.
    --help,       display this help
 
 * A couple of patterns are already available in the patterns directory.
-  -> working example : ./gameOfLife -p 'patterns/pentadecathlon.pat'
+  -> working example :
+```
+  ./gameOfLife -p 'patterns/pentadecathlon.pat'
+```
 
 -------------------------------------------------------------------------------
 3. PATTERNS FORMAT
@@ -36,11 +39,11 @@ Conway in 1970.
 For now, the only way you can play around with patterns of you own is by adding
 or editing existing files according to the following model.
 
-*****file start*****
+```
 size 2
 01
 10
-*****file end*****
+```
 
 On the above example, the first line specifies the size of the pattern. The
 following lines describes the two lines of the pattern (living=1, dead=0).
@@ -48,7 +51,7 @@ following lines describes the two lines of the pattern (living=1, dead=0).
 -------------------------------------------------------------------------------
 4. AUTHOR
 
-Romain Gauthier               <rj.gauthier@laposte.net>
+Romain Gauthier
 
 -------------------------------------------------------------------------------
 5. LICENSE
