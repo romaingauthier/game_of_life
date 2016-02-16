@@ -7,7 +7,6 @@ game of life patterns within your terminal. The game of life is a very popular
 example of a cellular automaton that was introduced by the mathematician John
 Conway in 1970.
 
--------------------------------------------------------------------------------
 ## HOW TO BUILD & RUN THE PROGRAM
 
 * The ncurses library is required to build.
