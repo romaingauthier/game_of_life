@@ -42,10 +42,6 @@ size 2
 On the above example, the first line specifies the size of the pattern. The
 following lines describes the two lines of the pattern (living=1, dead=0).
 
-## AUTHOR
-
-Romain Gauthier
-
 ## LICENSE
 
 Please refer to the GNU GPL 3.0 License (see gpl.txt).
