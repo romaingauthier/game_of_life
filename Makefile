@@ -1,26 +1,16 @@
-CFLAGS = -O3 -std=gnu99 -Wall -o
 CC = gcc
+CFLAGS = -O3 -std=gnu99 -Wall -g
+LDFLAGS = -lncurses
 
-all: gameOfLife cleanup
+SRC = $(wildcard *.c)
+OBJS = $(SRC:.c=.o)
+AOUT = gameOfLife
 
-gameOfLife: main.o gol.o cmd.o patterns.o
-	$(CC) $(CFLAGS) gameOfLife main.o gol.o cmd.o patterns.o -lncurses
+all : $(AOUT)
 
-main.o:
-	$(CC) -c $(CFLAGS) main.o main.c
-
-cmd.o:
-	$(CC) -c $(CFLAGS) cmd.o cmdline.c
-
-patterns.o:
-	$(CC) -c $(CFLAGS) patterns.o patterns.c
-
-gol.o:
-	$(CC) -c $(CFLAGS) gol.o gameoflife.c
-
-cleanup:
-	rm -f *.o
-
-clean: cleanup
-	rm -f gameOfLife
-
+gameOfLife: $(OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+clean:
+	@rm *.o
