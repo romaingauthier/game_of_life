@@ -11,7 +11,7 @@
     You should have received a copy of the GNU GPL 3.0 License along with this
     program. If not, see <http://www.gnu.org/licenses/gpl.html>.
 
-    Copyright (c) 2013 Romain Gauthier <rj.gauthier@laposte.net>
+    Copyright (c) 2013 Romain Gauthier
 */
 
 
