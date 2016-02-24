@@ -20,12 +20,12 @@
 static int help_tag;
 void usage(void) {
     printf("Usage: gameOfLife [options...]\n");
-    printf("   --size,      -s size of the squared grid (default: 30)\n");
-    printf("   --delay,     -d time between two iterations in ms (default: 100)\n");
-    printf("   --cell,      -c character used to draw a cell (default: '#')\n");
-    printf("   --nbiter,    -n number of iterations (default: 0 (infinite))\n");
-    printf("   --pattern,   -p path to the pattern file\n");
-    printf("   --help,       display this help\n");
+    printf("   --size       -s size of the squared grid (default: 30)\n");
+    printf("   --delay      -d time between two iterations in ms (default: 100)\n");
+    printf("   --cell       -c character used to draw a cell (default: '#')\n");
+    printf("   --nbiter     -n number of iterations (default: 0 (infinite))\n");
+    printf("   --pattern    -p path to the pattern file\n");
+    printf("   --help          display this help\n");
 }
 
 void initParams(Params *params) {
