@@ -30,6 +30,8 @@ void usage(void) {
 
 void initParams(Params *params) {
     params->size   = -1;
+    params->sizex  = -1;
+    params->sizey  = -1;
     params->delay  = 0;
     params->cell   = '#';
     params->nbiter = 0;

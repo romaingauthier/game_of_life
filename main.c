@@ -36,8 +36,10 @@ int main(int argc, char **argv){
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
     if( p.size < 0 || p.size > termsize) p.size = termsize;
-    initGrid(&grid, p.size);
-    initGrid(&grid2, p.size);
+    p.sizex = w.ws_col;
+    p.sizey = w.ws_row;
+    initGrid(&grid, p.sizex, p.sizey);
+    initGrid(&grid2, p.sizex, p.sizey);
 
     /* Set refresh rate */
     struct timespec req, rem;
@@ -72,12 +74,12 @@ int main(int argc, char **argv){
     initscr();
     cbreak();
 
-    int starty = (LINES - p.size) / 2;
-    int startx = (COLS - p.size) /2;
+    int starty = (LINES - p.sizey) / 2;
+    int startx = (COLS - p.sizex) /2;
 
     refresh();
     WINDOW *window;
-    window = newwin(p.size, p.size, starty, startx);
+    window = newwin(p.sizey, p.sizex, starty, startx);
     box(window, 0, 0);
 
     curs_set(0);

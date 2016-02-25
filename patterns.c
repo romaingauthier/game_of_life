@@ -18,11 +18,12 @@
 #include <regex.h>
 #include <time.h>
 
-void initGrid(Grid *grid, int size) {
-    grid->size = size;
-    grid->g = (int**)malloc(size*sizeof(int*));
-    for(int i = 0; i < size ; i++)
-      grid->g[i] = (int*)calloc(size,sizeof(int));
+void initGrid(Grid *grid, int sizex, int sizey) {
+    grid->sizex = sizex;
+    grid->sizey = sizey;
+    grid->g = (int**)malloc(sizex * sizeof(int*));
+    for(int i = 0; i < sizex ; i++)
+      grid->g[i] = (int*)calloc(sizey,sizeof(int));
 }
 
 void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
@@ -32,17 +33,19 @@ void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
         exit(EXIT_FAILURE);
     }
 
-    if ( y+pattern->size > grid->size-1 || x+pattern->size > grid->size -1) {
+    if (y+pattern->sizey > grid->sizey-1 || x+pattern->sizex > grid->sizex-1) {
         fprintf(stderr, "ERROR: the offset is too large for the grid.\n");
         exit(EXIT_FAILURE);
     }
     int x_offset = x, y_offset = y;
 
-    if (x < 0 || y < 0)
-      x_offset = y_offset = (grid->size - pattern->size) / 2;
+    if (x < 0 || y < 0) {
+        x_offset = grid->sizex / 2;
+        y_offset = grid->sizey / 2;
+    }
 
-    for(int i = 0; i < pattern->size; i++)
-        for(int j = 0; j < pattern->size; j++)
+    for(int i = 0; i < pattern->sizex; i++)
+        for(int j = 0; j < pattern->sizey; j++)
             grid->g[x_offset+i][y_offset+j] = pattern->g[i][j];
 }
 
@@ -60,11 +63,11 @@ void loadPatternFromFile(const char* path, Grid *pattern) {
 
     int scanTest = fscanf(file, "size %d", &size);
     if (!size || !scanTest) {
-        fprintf(stderr, "ERROR: unable to read patter from file '%s'.\n", path);
+        fprintf(stderr, "ERROR: unable to read pattern from file '%s'.\n", path);
         exit(EXIT_FAILURE);
     }
 
-    initGrid(pattern, size);
+    initGrid(pattern, size, size);
     while(fgets(line, 2048, file) != NULL) {
         ret = regexec(&regex, line, 0, NULL, 0);
         if (!ret) {
@@ -81,8 +84,8 @@ void generateRandomPatternOnGrid(Grid *grid, double live) {
     srand(time(NULL));
     if ( l <= 0 || l >=1 )
         l = 0.5;
-    for (int w = 0; w < grid->size ; w++)
-        for (int h = 0; h < grid->size ; h++) {
+    for (int w = 0; w < grid->sizex ; w++)
+        for (int h = 0; h < grid->sizey ; h++) {
             if((double)rand()/(double)RAND_MAX <= l)
                 grid->g[w][h] = 1;
             else grid->g[w][h] = 0;
@@ -90,7 +93,7 @@ void generateRandomPatternOnGrid(Grid *grid, double live) {
 }
 
 void freeGrid(Grid *pattern) {
-    for (int i = 0; i < pattern->size; i++)
+    for (int i = 0; i < pattern->sizey; i++)
         free(pattern->g[i]);
     free(pattern->g);
 }

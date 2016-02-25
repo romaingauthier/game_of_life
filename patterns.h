@@ -27,7 +27,7 @@ typedef struct Grid{
 } Grid;
 
 
-void initGrid(Grid *grid, int size);
+void initGrid(Grid *grid, int sizex, int sizey);
 void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y);
 void freeGrid(Grid *pattern);
 void loadPatternFromFile(const char* path, Grid *pattern);
