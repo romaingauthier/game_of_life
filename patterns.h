@@ -21,7 +21,6 @@
 
 typedef struct Grid{
     int **g;
-    int size;
     int sizex;
     int sizey;
 } Grid;

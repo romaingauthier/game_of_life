@@ -27,7 +27,7 @@ void initGrid(Grid *grid, int sizex, int sizey) {
 }
 
 void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
-    if (pattern->size > grid->size ) {
+    if (pattern->sizex > grid->sizex || pattern->sizey > grid->sizey) {
         fprintf(stderr, "ERROR: the pattern size is larger than the grid size. \
                 \n");
         exit(EXIT_FAILURE);
