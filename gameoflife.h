@@ -21,6 +21,7 @@
 #include "patterns.h"
 
 int checkRule(Grid *grid, int x, int y);
+int checkRuleNoBorder(Grid *grid, int x, int y);
 void drawToWindow(Grid *grid, WINDOW *window, char cell);
 void update(Grid *from, Grid *to);
 

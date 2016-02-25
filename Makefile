@@ -13,4 +13,4 @@ gameOfLife: $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 clean:
-	@rm *.o
+	rm *.o
