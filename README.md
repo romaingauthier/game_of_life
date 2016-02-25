@@ -16,7 +16,7 @@ Conway in 1970.
 * To run the program, several parameters can be specified as arguments:
 
 ```
-   --size     -s size of the squared grid (default: 30)
+   --size     -s size of the squared grid (default: rectangular grid, dimensions of the terminal)
    --delay    -d time between two iterations in ms (default: 100)
    --cell     -c character used to draw a cell (default: '#')
    --nbiter   -n number of iterations (default: 0 (infinite))

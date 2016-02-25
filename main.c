@@ -35,9 +35,15 @@ int main(int argc, char **argv){
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
-    if( p.size < 0 || p.size > termsize) p.size = termsize;
-    p.sizex = w.ws_col;
-    p.sizey = w.ws_row;
+    if( p.size < 0 || p.size > termsize) {
+        p.size = termsize;
+        p.sizex = w.ws_col;
+        p.sizey = w.ws_row;
+    }
+    else {
+        p.sizex = p.size;
+        p.sizey = p.size;
+    }
     initGrid(&grid, p.sizex, p.sizey);
     initGrid(&grid2, p.sizex, p.sizey);
 
