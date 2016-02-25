@@ -40,8 +40,8 @@ void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y) {
     int x_offset = x, y_offset = y;
 
     if (x < 0 || y < 0) {
-        x_offset = grid->sizex / 2;
-        y_offset = grid->sizey / 2;
+        x_offset = (grid->sizex - pattern->sizex) / 2;
+        y_offset = (grid->sizey - pattern->sizey) / 2;
     }
 
     for(int i = 0; i < pattern->sizex; i++)
