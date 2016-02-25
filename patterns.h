@@ -22,11 +22,12 @@
 typedef struct Grid{
     int **g;
     int size;
-    int zoomfactor;
+    int sizex;
+    int sizey;
 } Grid;
 
 
-void initGrid(Grid *grid, int size, int zoomfactor);
+void initGrid(Grid *grid, int size);
 void loadPatternToGrid(Grid *pattern, Grid *grid, int x, int y);
 void freeGrid(Grid *pattern);
 void loadPatternFromFile(const char* path, Grid *pattern);

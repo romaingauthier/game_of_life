@@ -29,7 +29,7 @@ int checkRule(Grid *grid, int x, int y){
              + g[x+1][y]
              + g [x+1][y+1];
     }
-    else if (x == 0){
+    else if (x == 0) {
 	      if (y == 0) {
                   return g[0][1]
                        + g [1][1]
@@ -37,7 +37,7 @@ int checkRule(Grid *grid, int x, int y){
               }
               else if (y == size-1) {
 		  return g[0][size-2]
-                       + g [1][size-1]
+                       + g[1][size-1]
                        + g[1][size-2];
               }
 	      else return g[0][y-1]
@@ -45,7 +45,7 @@ int checkRule(Grid *grid, int x, int y){
 		        + g[1][y] + g[1][y+1]
 		        + g[0][y+1];
     }
-    else if (x == size-1){
+    else if (x == size-1) {
 	      if (y == size-1) {
 		  return g[size-1][size-2]
 		       + g[size-2][size-2]

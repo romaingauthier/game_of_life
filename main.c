@@ -32,13 +32,12 @@ int main(int argc, char **argv){
     Grid grid, grid2;
 
     /* Terminal settings */
-    int zoomfactor = 1;
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     int termsize = (w.ws_row > w.ws_col) ? w.ws_col : w.ws_row;
     if( p.size < 0 || p.size > termsize) p.size = termsize;
-    initGrid(&grid, p.size, zoomfactor);
-    initGrid(&grid2, p.size, zoomfactor);
+    initGrid(&grid, p.size);
+    initGrid(&grid2, p.size);
 
     /* Set refresh rate */
     struct timespec req, rem;
