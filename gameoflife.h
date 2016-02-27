@@ -20,9 +20,9 @@
 #include <ncurses.h>
 #include "patterns.h"
 
-int checkRule(Grid *grid, int x, int y);
+int checkRuleFixedBorder(Grid *grid, int x, int y);
 int checkRuleNoBorder(Grid *grid, int x, int y);
 void drawToWindow(Grid *grid, WINDOW *window, char cell);
-void update(Grid *from, Grid *to);
+void update(Grid *from, Grid *to, int (*checkRule)(Grid*, int, int));
 
 #endif

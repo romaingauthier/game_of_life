@@ -16,7 +16,7 @@
 
 #include "gameoflife.h"
 
-int checkRule(Grid *grid, int x, int y){
+int checkRuleFixedBorder(Grid *grid, int x, int y){
     int **g = grid->g;
     int sizex = grid->sizex;
     int sizey = grid->sizey;
@@ -96,7 +96,7 @@ int checkRuleNoBorder(Grid *grid, int x, int y){
 }
 
 
-void update(Grid *from, Grid *to) {
+void update(Grid *from, Grid *to, int (*checkRule)(Grid*, int, int)) {
     int i,j,res;
     int sizex = from->sizex;
     int sizey = from->sizey;

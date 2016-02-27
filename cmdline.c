@@ -24,6 +24,7 @@ void usage(void) {
     printf("   --delay      -d time between two iterations in ms (default: 100)\n");
     printf("   --cell       -c character used to draw a cell (default: '#')\n");
     printf("   --nbiter     -n number of iterations (default: 0 (infinite))\n");
+    printf("   --border     -b border of the grid (0 = no border (default), 1 = fixed border)\n");
     printf("   --pattern    -p path to the pattern file\n");
     printf("   --help          display this help\n");
 }
@@ -49,11 +50,12 @@ void parseOptions(int argc, char **argv, Params *params) {
             {"delay",     required_argument, 0, 'd'},
             {"cell",      required_argument, 0, 'c'},
             {"nbiter",    required_argument, 0, 'n'},
+            {"border",    required_argument, 0, 'b'},
             {"pattern",   required_argument, 0, 'p'},
             {0,0,0,0}
         };
         int option_index = 0;
-        c = getopt_long(argc, argv, "s:d:c:n:p:g:h:", long_options, &option_index);
+        c = getopt_long(argc, argv, "s:d:c:n:b:p:g:h:", long_options, &option_index);
         if (c == -1)
             break;
         switch(c) {
@@ -71,6 +73,9 @@ void parseOptions(int argc, char **argv, Params *params) {
             break;
           case 'c':
             params->cell  = optarg[0];
+            break;
+          case 'b':
+            params->border  = atoi(optarg);
             break;
           case 'n':
             params->nbiter  = atoi(optarg);

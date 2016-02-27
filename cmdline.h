@@ -25,6 +25,7 @@ typedef struct Params{
     int  size;
     int  sizex;
     int  sizey;
+    int  border;
     long delay;
     char cell;
     unsigned int nbiter;

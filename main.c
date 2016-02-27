@@ -66,6 +66,9 @@ int main(int argc, char **argv){
     unsigned int iteration = 0, nbiter = 0;
     if (p.nbiter) nbiter = p.nbiter;
 
+    /* Set border properties of the grid. */
+    int (*checkRule)(Grid*, int, int) = &checkRuleNoBorder;
+    if (p.border == 1) checkRule = &checkRuleFixedBorder;
 
     /* Console pattern loading */
     Grid pattern;
@@ -92,11 +95,11 @@ int main(int argc, char **argv){
 
     while (iteration < nbiter || !p.nbiter){
         if (iteration % 2 == 0){
-            update(&grid, &grid2);
+            update(&grid, &grid2, checkRule);
             drawToWindow(&grid2, window, p.cell);
         }
         else {
-            update(&grid2, &grid);
+            update(&grid2, &grid, checkRule);
             drawToWindow(&grid, window, p.cell);
         }
         wrefresh(window);
