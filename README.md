@@ -20,6 +20,7 @@ Conway in 1970.
    --delay    -d time between two iterations in ms (default: 100)
    --cell     -c character used to draw a cell (default: '#')
    --nbiter   -n number of iterations (default: 0 (infinite))
+   --border   -b border of the grid (0 = no border (default), 1 = fixed border)
    --pattern  -p path to the pattern file
    --help        display this help
 ```
