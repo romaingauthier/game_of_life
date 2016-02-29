@@ -2,10 +2,8 @@
 
 ## PRESENTATION
 
-This tiny program is a very simple to use command-line tool to play around with
-game of life patterns within your terminal. The game of life is a very popular
-example of a cellular automaton that was introduced by the mathematician John
-Conway in 1970.
+This program is a simple to use command-line tool to play around with game of
+life patterns within your terminal.
 
 ## HOW TO BUILD & RUN THE PROGRAM
 
@@ -28,7 +26,7 @@ Conway in 1970.
 
 example :
 ```
-$ ./gameOfLife -p 'patterns/pentadecathlon.pat'
+$ ./gameOfLife -p 'patterns/pentadecathlon.pat' -b 1 -c '%' -d 50
 ```
 
 ## PATTERNS FORMAT
@@ -44,6 +42,10 @@ size 2
 
 On the above example, the first line specifies the size of the pattern. The
 following lines describes the two lines of the pattern (living=1, dead=0).
+
+## AUTHOR
+
+Romain Gauthier
 
 ## LICENSE
 
