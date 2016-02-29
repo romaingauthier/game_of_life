@@ -95,7 +95,6 @@ int checkRuleNoBorder(Grid *grid, int x, int y){
          + g[xp1][yp1];
 }
 
-
 void update(Grid *from, Grid *to, int (*checkRule)(Grid*, int, int)) {
     int i,j,res;
     int sizex = from->sizex;
@@ -118,7 +117,6 @@ void update(Grid *from, Grid *to, int (*checkRule)(Grid*, int, int)) {
 	}
 }
 
-
 void drawToWindow(Grid *grid, WINDOW *window, char cell){
     int i,j;
     for ( i = 0 ; i < grid->sizex ; i++)
@@ -127,5 +125,3 @@ void drawToWindow(Grid *grid, WINDOW *window, char cell){
 	    else mvwaddch(window, j, i, ' ');
 	}
 }
-
-
