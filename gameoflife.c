@@ -33,7 +33,7 @@ int checkRuleFixedBorder(Grid *grid, int x, int y){
     else if (x == 0) {
 	      if (y == 0) {
                   return g[0][1]
-                       + g [1][1]
+                       + g[1][1]
                        + g[1][0];
               }
               else if (y == sizey-1) {
@@ -81,10 +81,10 @@ int checkRuleNoBorder(Grid *grid, int x, int y){
     int **g = grid->g;
     int sizex = grid->sizex;
     int sizey = grid->sizey;
-    int xm1 = (x - 1) > -1 ? x - 1 : sizex - 1;
-    int ym1 = (y - 1) > -1 ? y - 1 : sizey - 1;
-    int xp1 = (x + 1) > sizex - 1 ? 0 : x+1;
-    int yp1 = (y - 1) > sizey - 1 ? 0 : y+1;
+    int xm1 = (x-1) > -1 ? x-1 : sizex-1;
+    int ym1 = (y-1) > -1 ? y-1 : sizey-1;
+    int xp1 = (x+1) > sizex-1 ? 0 : x+1;
+    int yp1 = (y-1) > sizey-1 ? 0 : y+1;
     return g[xm1][ym1]
          + g[xm1][y]
          + g[xm1][yp1]
